@@ -49,11 +49,29 @@ def update_weather(d):
 def save_retry(re_date):
     update_weather(re_date)
 
+def change_repo():
+    station_info = pd.read_csv('./input/관측지점코드.csv')
+    weather_dir = './weather'
+
+    for idx, row in station_info.iterrows():
+        code = row['지점']
+        name = row['지점명']
+        old_path = os.path.join(weather_dir, name)
+
+        # 새로운 디렉토리 코드로 된 경로 생성
+        new_path = os.path.join(weather_dir, f'{code}')
+
+        try:
+            os.rename(old_path, new_path)
+        except:
+            print(f'{name}없음')
+
 
 def main():
-    today = datetime.now(desired_timezone)
-    d = (today - timedelta(days=1)).strftime('%Y%m%d')
-    update_weather(d)
+    change_repo()
+    # today = datetime.now(desired_timezone)
+    # d = (today - timedelta(days=1)).strftime('%Y%m%d')
+    # update_weather(d)
 
     re_date = '' # %Y%m%d
     # re_list = ['20240119']

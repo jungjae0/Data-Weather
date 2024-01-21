@@ -1,70 +1,30 @@
-# 기상/농산물가격정보 API + GitHub Action
+# 기상청_지상(종관, ASOS) 일자료 조회서비스 수집 자동화
 
-## Settings
+----
 
-### API Key 발급
+GitHub Action을 사용하여 [기상청_지상(종관, ASOS) 일자료 조회서비스 API](https://www.data.go.kr/data/15059093/openapi.do) 데이터 수집 자동화
+- 기상대가 설치되어 있는 지점의 종관기상관측일자료 데이터 수집
+- 해당 지역과 지점코드는 [관측지점코드](./input/관측지점코드.csv) 또는 공공데이터포털의 활용가이드 참고
+- ```지점코드```를 디렉토리명으로 수집
 
-| 구분                    | 제공                 | link                                                               |
-|-----------------------|--------------------|--------------------------------------------------------------------|
-| 지상(종관, ASOS) 일자료 조회서비스 | 기상청(공공데이터 포털)      | [link](https://www.data.go.kr/data/15059093/openapi.do)            |
-| 농산물 가격 정보             | 한국농수산식품유통공사(KAMIS) | [link](https://www.kamis.or.kr/customer/reference/openapi_list.do) |
+아래와 같은 형식을 맞추어 csv 파일 형태로 사용할 수 있음
 
-
-### GitHub Token 발급
-
-Settings / Developer Settings / Personal access tokens / Tokens(classic)
-
-![GitHub Token](https://github.com/jungjae0/Action-API/assets/93760723/2163c604-9744-4db7-8b7d-c8091ef269ee)
-
-### Actions secrets and variables
-
-Repository Settings / Secrets and variables / Actions / New repository secret
-
-API Key, GitHub Token 등록
-
-![Secrets Keys](https://github.com/jungjae0/Action-API/assets/93760723/a39dc6b7-1b88-40d5-9a48-a75d1dd80940)
-
-```yaml
-# workflows/update_data.yml
-- name: Run Python Script
-  run: python update_data.py
-  env:
-    MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
-    PRICE_API_KEY: ${{ secrets.PRICE_API_KEY }}
-    WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-```
-
-```python
-# load_data.py
-p_cert_key = os.environ['PRICE_API_KEY']
-servicekey = os.environ['WEATHER_API_KEY']
-
-# update_data.py
-GITHUB_TOKEN = os.environ['MY_GITHUB_TOKEN']
-```
-
-## Results
+```https://raw.githubusercontent.com/jungjae0/Data-Weather/main/weather/{지점코드}/{연도}/{월}.csv```
 
 
-**매일 새벽 1시 업데이트**
+----
 
-| 구분   | 일별 기상 데이터 streamlit                                                                                       | 일별 부류별 농산물 도.소매 가격 정보                                                                                 |
-|------|-----------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| link | **[link](https://actionapi.streamlit.app/)**                                                              | **[link](https://github.com/jungjae0/Action-API/issues)**                                                 |
-| data | **[link](./output/weather)**                                                                              | **[link](./output/price)**                                                 |
-| 결과   | ![streamlit](https://github.com/jungjae0/Action-API/assets/93760723/80565b6b-dfaf-4005-a31c-be0d67ad8eb5) | ![issue](https://github.com/jungjae0/Action-API/assets/93760723/6f6e6c64-7c74-456a-8cd1-1a4b845aeab2) |
+| 항목명(영문)  | 항목명(국문) | 샘플데이터 | 항목설명         |
+|----------|---------|-------|--------------|
+| year     | 연도      | 1973  |              |
+| month    | 월       | 1     |              |
+| day      | 일       | 1     |              |
+| tavg     | 일평균기온   | -7.6  | 평균 기온(°C)    |
+| tmin     | 일최저기온   | -12.7 | 최저 기온(°C)    |
+| tmax     | 일최고기온   | -3.6  | 최고 기온(°C)    |
+| rain     | 일강수량    | 0     | 일강수량(mm)     |
+| sunshine | 합계일조시간  | 7.3   | 합계 일조 시간(hr) |
+| snow     | 일 최심신적설        | 25.8  | 일 최심신적설(cm)  |
 
+일 최심신적설: 전에 내렸던 눈은 제거하고, 고려하고 있는 기간 동안, 새롭게 쌓인 눈이 가장 두껍게 쌓여 있을 때의 눈의 두께(깊이).
 
-
------
-
-1. ```load_data.py``` > request API
-2. ```update_data.py``` > update csv/issue
-
-    - ```update_issue.py``` > update issue
-    - ```update_price.py``` > update price
-    - ```update_weather.py``` > update weather
-
-3. ```.github/workflows/update_data.yml``` > GitHub Action workflow
-4. ```app.py``` > temperature monitoring streamlit app
-5. ```output``` > update data

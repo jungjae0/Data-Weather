@@ -40,8 +40,7 @@ def request_price_api(date, code):
 
 def request_weather_api(stn_Ids, s_d, e_d):
     url = 'http://apis.data.go.kr/1360000/AsosDalyInfoService/getWthrDataList'
-    # servicekey = os.environ['WEATHER_API_KEY']
-    servicekey = 'HOhrXN4295f2VXKpOJc4gvpLkBPC/i97uWk8PfrUIONlI7vRB9ij088/F5RvIjZSz/PUFjJ4zkMjuBkbtMHqUg=='
+    servicekey = os.environ['WEATHER_API_KEY']
 
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64)'
                              'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132'
