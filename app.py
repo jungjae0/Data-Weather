@@ -17,13 +17,12 @@ def main():
     selected_location = st.selectbox('지역 선택', location_list)
     location_dir = os.path.join(weather_dir, str(location_dict[selected_location]))
     exists_years = os.listdir(location_dir)
-    exists_years = sorted(exists_years)
+    exists_years = (sorted(exists_years, reverse=True))
 
     selected_year = st.selectbox('연도 선택', exists_years)
     year_dir = os.path.join(location_dir, str(selected_year))
     selected_df = pd.concat([pd.read_csv(os.path.join(year_dir, file))for file in os.listdir(year_dir)])
     df =selected_df.sort_values(by=['month', 'day'])
-    print(df.info())
 
 
     df_pivot = df.pivot_table(index='month', columns='day', values='tavg')
