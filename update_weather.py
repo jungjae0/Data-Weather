@@ -56,7 +56,7 @@ def main():
     update_weather(d)
 
     re_date = '' # %Y%m%d
-    # re_list = ['20240117', '20240118']
+    # re_list = ['20240119']
     # import tqdm
     # for re_date in tqdm.tqdm(re_list):
     #     save_retry(re_date)
