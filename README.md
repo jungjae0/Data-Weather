@@ -11,6 +11,8 @@ GitHub Action을 사용하여 [기상청_지상(종관, ASOS) 일자료 조회�
 
 ```https://raw.githubusercontent.com/jungjae0/Data-Weather/main/weather/{지점코드}/{연도}/{월}.csv```
 
+[데이터 확인](https://koreaweather.streamlit.app/)에서 지역과 연도를 선택하여 데이터를 확인할 수 있음
+
 
 ----
 
