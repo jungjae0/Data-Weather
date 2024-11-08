@@ -34,7 +34,7 @@ jobs:
         git config user.email "jyihaan4@naver.com"
         git config user.name "Jung Jaeyoung"
 
-        git add ./weather/*/*.csv
+        git add ./weather_data/*/*.csv
         # git clean -xdf
         git commit -m "Update Data | $(TZ='Asia/Seoul' date +'%Y-%m-%d')"
         git push  
