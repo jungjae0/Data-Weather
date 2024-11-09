@@ -1,7 +1,7 @@
 import os
 import json
 import time
-import tqdm
+# import tqdm
 # from unittest.mock import right
 
 import requests
